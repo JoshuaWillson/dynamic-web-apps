@@ -53,8 +53,8 @@ const html = {
     searchOverlay: { searchButton: document.querySelector('[data-search-form]'),
                      cancelButton: document.querySelector('[data-search-cancel]'),
                      titleInput: document.querySelector('[data-search-title]'),
-                     genreOptions: document.querySelector('[data-search-genres]'),
-                     authorOptions: document.querySelector('[data-search-authors]'),
+                     genresOptions: document.querySelector('[data-search-genres]'),
+                     authorsOptions: document.querySelector('[data-search-authors]'),
     },
     settingsOverlay: { saveButton: document.querySelector('[data-settings-form]'),
                        cancelButton: document.querySelector('[data-settings-cancel]'),
@@ -147,59 +147,35 @@ const calcButtonRemainingBooks = () => {
 
 calcButtonRemainingBooks()
 
-/** 
- * a function that creates a document fragment and appends genre options based on the id and name of each property
- * in the genres object, an array of two key value pairs(the id and name) of each property is created using the 
- * object.entries method on the genres object, it is looped through for every key value pair, the document fragment
- * is then appended to the html document.
- * 
- * @returns {void}
- */
-const createGenreOptions = () => {
-    const genreFragment = document.createDocumentFragment()
-    const genreOptionsAll = document.createElement('option')
-    genreOptionsAll.value = 'any'
-    genreOptionsAll.innerHTML = 'All Genres'
-    genreFragment.appendChild(genreOptionsAll)
-    
-    for (const [id, name] of Object.entries(genres)) {
-        const genreOption = document.createElement('option')
-        genreOption.value = id
-        genreOption.innerText = name
-        genreFragment.appendChild(genreOption)
-    }
-    
-    html.searchOverlay.genreOptions.appendChild(genreFragment)
-}
-
-createGenreOptions()
-
 /**
- * a function that creates a document fragment and appends author options based on the id and name of each property
- * in the authors object, an array of two key value pairs(the id and name) of each property is created using the 
- * object.entries method on the authors object, it is looped through for every key value pair, the document fragment
+ * a function that creates a document fragment and appends options based on the id and name of each property
+ * in the object, an array of two key value pairs(the id and name) of each property is created using the 
+ * object.entries method on the object, it is looped through for every key value pair, the document fragment
  * is then appended to the html document.
+ * 
+ * @param {string} optionType - the name of the object starting with a capital letter in order to specify an options list.
  * 
  * @returns {void}
  */
-const createAuthorOptions = () => {
-    const authorFragment = document.createDocumentFragment()
-    const authorOptionsAll = document.createElement('option')
-    authorOptionsAll.value = 'any'
-    authorOptionsAll.innerText = 'All Authors'
-    authorFragment.appendChild(authorOptionsAll)
+const createOptionsList = (optionType) => {
+    const fragment = document.createDocumentFragment()
+    const optionsAll = document.createElement('option')
+    optionsAll.value = 'any'
+    optionsAll.innerText = `All ${optionType}`
+    fragment.appendChild(optionsAll)
     
-    for (const [id, name] of Object.entries(authors)) {
-        const authorOption = document.createElement('option')
-        authorOption.value = id
-        authorOption.innerText = name
-        authorFragment.appendChild(authorOption)
+    for (const [id, name] of Object.entries(eval(optionType.toLowerCase()))) {
+        const option = document.createElement('option')
+        option.value = id
+        option.innerText = name
+        fragment.appendChild(option)
     }
     
-    html.searchOverlay.authorOptions.appendChild(authorFragment)
+    html.searchOverlay[`${optionType.toLowerCase()}Options`].appendChild(fragment)
 }
 
-createAuthorOptions()
+createOptionsList('Genres')
+createOptionsList('Authors')
 
 /**
  * an event handler that first increases page by 1, range index 0 is increased by BOOKS_PER_PAGE, and range index 1 is increased by 
