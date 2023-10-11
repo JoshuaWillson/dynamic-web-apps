@@ -79,9 +79,9 @@ const html = {
  * 
  * @param {Object} props - properties from each object in the matches array to be parsed and returned within the function.
  * 
- * @returns {string} - returns a string formatted in html
+ * @returns {string} - returns a string formatted in html syntax
  */
-const createPreview = (props) => {
+const createPreviewItemInnerHTML = (props) => {
     const {author, image, title} = props
     return /* html */ `
     <img
@@ -97,36 +97,52 @@ const createPreview = (props) => {
  }
 
 /** 
- * function that creates a document fragment and an array that extracts items within a range from the matches array, 
+ * a function that creates a document fragment and an array that extracts items within a range from the matches array, 
  * it then loops through each object of the extracted array and uses specified properties as arguments for the 
- * createPreview function, within each loop iteration a button document element is created and within its inner
- * html the createPreview function is called, each preview element is appended to the fragment and the fragment is 
- * then appended to the document which is returned.
+ * createPreviewItemInnerHTML function, within each loop iteration a button document element is created and within its inner
+ * html the createPreviewItemInnerHTML function is called, each preview element is appended to the fragment and the fragment is 
+ * then returned.
  * 
- * @returns {void}
+ * @returns {DocumentFragment} - a document fragment containing extracted preview list elements
  */
-const createHTMLListItems = () => {
-    const fragment = document.createDocumentFragment()
-    const extracted = matches.slice(range[0], range[1])
+const createExtractedPreviewHTMLListItems = () => {
+    const previewDocumentFragment = document.createDocumentFragment()
+    const extractedBooks = matches.slice(range[0], range[1])
     
-    for (const { author, image, title, id } of extracted) {
-        const preview = document.createElement('button')
-        preview.classList = 'preview'
-        preview.setAttribute('data-preview', id)
+    for (const { author, image, title, id } of extractedBooks) {
+        const previewItem = document.createElement('button')
+        previewItem.classList = 'preview'
+        previewItem.setAttribute('data-preview', id)
         
-        preview.innerHTML = createPreview({
+        previewItem.innerHTML = createPreviewItemInnerHTML({
             author,
             image,
             title
         })
     
-        fragment.appendChild(preview)
+        previewDocumentFragment.appendChild(previewItem)
     }
-    
-    html.buttons.bookList.appendChild(fragment)
+
+    return previewDocumentFragment
 }
 
-createHTMLListItems()
+
+/**
+ * a factory function that creates and returns an object containing a method which appends extracted preview 
+ * elements to the document.
+ * 
+ * @returns {Object} - an object containing a createPreviewList method
+ */
+const previewList = () => {
+    const previewItems = createExtractedPreviewHTMLListItems()
+
+    return {
+        createPreviewList: () => html.buttons.bookList.appendChild(previewItems)
+    }
+}
+
+const preloadedList = previewList()
+preloadedList.createPreviewList()
 
 /** a function that sets the value of the remaining button html element, whether it is disabled or not,
  *  and the inner html based on calculations using the matches array length, the value of the page variable,
@@ -188,7 +204,8 @@ const remainingListButtonHandler = () => {
     range[0] = range[0] + BOOKS_PER_PAGE
     range[1] = range[1] + BOOKS_PER_PAGE
 
-    createHTMLListItems()
+    const remainingList = previewList()
+    remainingList.createPreviewList()
 
     calcButtonRemainingBooks()
 }
@@ -250,7 +267,8 @@ const searchFormHandler = (event) => {
         
         html.buttons.bookList.innerHTML = ''
         
-        createHTMLListItems()
+        const matchingList = previewList()
+        matchingList.createPreviewList()
 
         calcButtonRemainingBooks()
     
