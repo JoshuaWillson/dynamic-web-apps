@@ -11,18 +11,6 @@ import { remainingListButtonHandler,
 } from "./modules/event-handlers.js";
 import { preloadedScripts } from "./modules/functions.js";
 
-/**
- * {Array<object>} - a temporary array that at first contains every object of books array but changes
- * according to the filters applied by the user.
- */
-
-/** {Number} - a variable that starts at 1 and increases by 1 or is reset based on the state of the app.*/
-
-/**
- * {Array<number>} - an array that only has two indexes, index 0 starts at 0 and index 1 starts at the
- * BOOKS_PER_PAGE value which is 36, both indexes either increase by 36 or is reset based on the state of the app.
- */
-
 preloadedScripts()
 
 //an event listener for the remaining books button.

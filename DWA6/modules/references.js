@@ -58,6 +58,19 @@ export const html = {
 
 }
 
+/**
+ * @typedef {Object} StateObject
+ * 
+ * @prop {Array<object>} matches - a temporary array that at first contains every object of books array but changes
+ * according to the filters applied by the user.
+ * @prop {Number} page - a variable that starts at 1 and increases by 1 or is reset based on the state of the app.
+ * @prop {Array<number>} range - an array that only has two indexes, index 0 starts at 0 and index 1 starts at the
+ * BOOKS_PER_PAGE value which is 36, both indexes either increase by 36 or is reset based on the state of the app.
+ */
+
+/** @type {StateObject} - an object literal for the state of the app which can change depending on how many books match the search filter, 
+ *  what page the preview list is on and the range of books that are displayed. 
+ */
 export const state = {
     matches: books,
     page: 1,

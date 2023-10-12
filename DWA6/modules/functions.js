@@ -100,6 +100,7 @@ export const createOptionsList = (optionType) => {
     html.searchOverlay[`${optionType.toLowerCase()}Options`].appendChild(fragment)
 }
 
+/** all of the functions that will run when the app is started.*/
 export const preloadedScripts = () => {
     const preloadedList = previewList()
     preloadedList.createPreviewList()
