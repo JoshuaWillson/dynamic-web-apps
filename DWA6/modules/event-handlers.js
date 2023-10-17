@@ -1,7 +1,6 @@
 import { css, html, state } from "./references.js"
 import { BOOKS_PER_PAGE, authors, books } from "./data.js";
-import { previewList } from "./components.js"
-import { calcButtonRemainingBooks } from "./functions.js";
+import { calcButtonRemainingBooks, createExtractedPreviewHTMLListItems } from "./functions.js";
 
 /**
  * an event handler that first increases page by 1, range index 0 is increased by BOOKS_PER_PAGE, and range index 1 is increased by 
@@ -14,8 +13,7 @@ export const remainingListButtonHandler = () => {
     state.range[0] = state.range[0] + BOOKS_PER_PAGE
     state.range[1] = state.range[1] + BOOKS_PER_PAGE
 
-    const remainingList = previewList()
-    remainingList.createPreviewList()
+    createExtractedPreviewHTMLListItems()
 
     calcButtonRemainingBooks()
 }
@@ -74,8 +72,7 @@ export const searchFormHandler = (event) => {
         
         html.buttons.bookList.innerHTML = ''
         
-        const matchingList = previewList()
-        matchingList.createPreviewList()
+        createExtractedPreviewHTMLListItems()
 
         calcButtonRemainingBooks()
     
@@ -161,16 +158,12 @@ export const submitSettingsHandler = (event) => {
  * @returns {void}
  */
 export const activeListItemHandler = (event) => {
-    const pathArray = Array.from(event.path || event.composedPath())
     let active = null;
 
-    for (const node of pathArray) {
-        if (active) break;
-        const previewId = node?.dataset?.preview
-    
-        for (const singleBook of books) {
-            if (singleBook.id === previewId) active = singleBook
-        }
+    const previewId = event.target.id
+
+    for (const singleBook of books) {
+        if (singleBook.id === previewId) active = singleBook
     }
     
     if (!active) return
