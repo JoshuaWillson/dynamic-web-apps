@@ -1,0 +1,119 @@
+:root {
+    --color-green: #31c48d;
+    --color-red-light: #f2dede;
+    --color-red-dark: #a94442;
+    --color-black: black;
+    --color-white: white;
+    --color-dark-grey: #33333d;
+    --color-medium-grey: #424250;
+    --color-light-grey: #9ca3ae;
+}
+
+* {
+ box-sizing: border-box;
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    background: var(--color-medium-grey);
+    color: var(--color-white);
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+
+/* header */
+.header {
+    text-align: center;
+}
+
+.header__title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-light-grey);
+}
+
+/* controls  */
+.controls {
+    background: yellow;
+}
+
+/* counter  */
+.counter {
+    max-width: 30rem;
+}
+
+.counter__value {
+    text-align: center;
+}
+
+.counter__value::part(input) {
+    width: 55%;
+    height: 100%;
+    text-align: center;
+    font-size: 6rem;
+    font-weight: 900;
+}
+
+.counter__value::part(base) {
+    background: #33333d;
+    display: contents;
+}
+
+.counter__actions {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.counter__button::part(base) {
+    width: 100%;
+    font-size: 3rem;
+    background: var(--color-dark-grey);
+}
+
+.counter__button::part(base):active {
+    background: var(--color-medium-grey);
+    transform: translateY(2%);
+}
+
+.counter__button::part(base):disabled {
+    opacity: 0.2;
+}
+
+/* footer */
+.footer {
+    background: var(--color-dark-grey);
+    color: var(--color-light-grey);
+    padding: 2rem;
+    font-size: 0.8rem;
+    text-align: center;
+    width: 100%;
+}
+
+.footer__link {
+    color: var(--color-white);
+}
+
+.error {
+    background-color: var(--color-red-light);
+    color: var(--color-red-dark);
+    padding: 2rem;
+}
+
+.confirmation {
+    text-align: center;
+    margin-top: 2rem;
+    color: red;
+    display: none;
+}
+
+.confirmation__show {
+    display: block;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IWA_01 Tally Count</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.10.0/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.10.0/cdn/shoelace-autoloader.js"></script>
+    <script src="./scripts.js" defer></script>
+</head>
+<body>
+
+    <header class="header">
+        <h1 class="header__title">
+         Tally Count
+        </h1>
+    </header>
+
+    <main class="counter">
+        <noscript>
+            <p class="error">This web app requires JavaScript to work</p>
+        </noscript>
+
+        <sl-input class="counter__value" data-key="number" readonly value="0" size="large"></sl-input>
+
+        <div class="style"></div>
+        
+        <div class="counter__actions">
+
+            <sl-button-group label="Alignment">
+                <sl-button variant="neutral" class="counter__button counter__button_first" data-key="subtract" size="large"><sl-icon name="dash-lg"></sl-icon></sl-button>
+                <sl-button variant="neutral" class="counter__button" data-key="reset" size="large"><sl-icon name="arrow-clockwise"></sl-icon></sl-button>
+                <sl-button variant="neutral" class="counter__button" data-key="add" size="large"><sl-icon name="plus-lg"></sl-icon></sl-button>
+            </sl-button-group>
+
+        </div>
+
+        <div class="confirmation" data-key="confirmation">Counter has been reset.</div>
+
+    </main>
+
+    <footer class="footer">
+        Inspired by <a class="footer__link" href="https://tallycount.app/" target="_blank" rel="noopener noreferrer">Tally Count</a>
+        . Note that this is merely a student practice project for learning JavaScript.
+
+    </footer>
+    
+</body>
+</html>
