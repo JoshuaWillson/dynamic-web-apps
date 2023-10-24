@@ -4,27 +4,30 @@ export const increase = () => {
     return {
         ...state,
         counter: {
-            value: state.counter.value += 1
+          ...state.counter,
+          value: state.counter.value + 1
         }
-    }
+      }
 }
 
 export const decrease = () => {
     return {
-        ...state,
-        counter: {
-            value: state.counter.value -= 1
-        }
+      ...state,
+      counter: {
+        ...state.counter,
+        value: state.counter.value - 1
+      }
     }
-}
+  }
 
 export const reset = () => {
     return {
         ...state,
         counter: {
-            value: state.counter.value = 0
+          ...state.counter,
+          value: state.counter.value = 0
         }
-    }
+      }
 }
 
 export const getState = (state) => {
