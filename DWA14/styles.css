@@ -1,0 +1,30 @@
+:root {
+    --color-green: #31c48d;
+    --color-red-light: #f2dede;
+    --color-red-dark: #a94442;
+    --color-black: black;
+    --color-white: white;
+    --color-dark-grey: #33333d;
+    --color-medium-grey: #424250;
+    --color-light-grey: #9ca3ae;
+}
+
+* {
+ box-sizing: border-box;
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    background: var(--color-medium-grey);
+    color: var(--color-white);
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
